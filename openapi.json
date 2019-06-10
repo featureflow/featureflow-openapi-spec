@@ -1,0 +1,2566 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Featureflow API documentation",
+        "version": "2.0.0",
+        "title": "Featureflow API",
+        "termsOfService": "https://www.featureflow.io/terms",
+        "contact": {
+            "name": "Featureflow",
+            "url": "https://www.featureflow.io",
+            "email": "contact@featureflow.io"
+        },
+        "license": {
+            "name": "proprietary",
+            "url": "https://www.featureflow.io/apilicense"
+        }
+    },
+    "host": "app.featureflow.io",
+    "basePath": "/",
+    "tags": [
+        {
+            "name": "Environment",
+            "description": "A environment allows you to manage multiple software environments under a single organisation account. Each environment has it's own environments and features. /n In the environment api you can list, get, update and delete environments."
+        },
+        {
+            "name": "Feature",
+            "description": "A feature represents a manageable feature in your organisations project. You can define feature variants and attributes then set feature configuration for each of your environments."
+        },
+        {
+            "name": "Project",
+            "description": "A project allows you to manage multiple software projects under a single organisation account. Each project has it's own environments and features. /n In the project api you can list, get, update and delete projects."
+        }
+    ],
+    "schemes": [
+        "https"
+    ],
+    "paths": {
+        "/api/v2/environments": {
+            "get": {
+                "tags": [
+                    "Environment"
+                ],
+                "summary": "Get all environments",
+                "description": "Returns a summary list of all environments within the organisation",
+                "operationId": "listUsingGET",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/environments"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ],
+                "deprecated": false
+            },
+            "post": {
+                "tags": [
+                    "Environment"
+                ],
+                "summary": "Create a new environment",
+                "description": "Create a new environment with the given friendly name and unique key.",
+                "operationId": "createUsingPOST",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "environment",
+                        "description": "environment",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/environment-update"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/environment"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ],
+                "deprecated": false
+            },
+            "put": {
+                "tags": [
+                    "Environment"
+                ],
+                "summary": "Update an environment",
+                "description": "Update an environment.",
+                "operationId": "updateUsingPUT",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "environment",
+                        "description": "environment",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/environment-update"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/environment"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ],
+                "deprecated": false
+            }
+        },
+        "/api/v2/environments/{id}": {
+            "get": {
+                "tags": [
+                    "Environment"
+                ],
+                "summary": "Get a environment.",
+                "description": "Returns a detail representation of a single environment for the given id",
+                "operationId": "getUsingGET",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/environment"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ],
+                "deprecated": false
+            },
+            "delete": {
+                "tags": [
+                    "Environment"
+                ],
+                "summary": "Delete a environment",
+                "description": "Delete a environment with the given id. Projects must have at least one environment.",
+                "operationId": "deleteUsingDELETE",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object"
+                        }
+                    },
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ],
+                "deprecated": false
+            }
+        },
+        "/api/v2/features": {
+            "get": {
+                "tags": [
+                    "Feature"
+                ],
+                "summary": "Get all features",
+                "description": "Returns a summary list of all features within the organisation",
+                "operationId": "listUsingGET_1",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "featureKey",
+                        "in": "query",
+                        "description": "featureKey",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "projectKey",
+                        "in": "query",
+                        "description": "projectKey",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/features"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ],
+                "deprecated": false
+            },
+            "post": {
+                "tags": [
+                    "Feature"
+                ],
+                "summary": "Create a new feature",
+                "description": "Create a new feature with the given friendly name and unique key.",
+                "operationId": "createUsingPOST_1",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "feature",
+                        "description": "feature",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/feature"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ],
+                "deprecated": false
+            },
+            "put": {
+                "tags": [
+                    "Feature"
+                ],
+                "summary": "Update a feature",
+                "description": "Update a feature with the given key.",
+                "operationId": "updateUsingPUT_1",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "feature",
+                        "description": "feature",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/feature"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/feature"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ],
+                "deprecated": false
+            }
+        },
+        "/api/v2/features/{id}": {
+            "get": {
+                "tags": [
+                    "Feature"
+                ],
+                "summary": "Get a feature.",
+                "description": "Returns a detail representation of a single feature for the given id or projectKey:featureKey",
+                "operationId": "getUsingGET_1",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/feature"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ],
+                "deprecated": false
+            },
+            "delete": {
+                "tags": [
+                    "Feature"
+                ],
+                "summary": "Delete a feature",
+                "description": "Delete a feature with the given id.",
+                "operationId": "deleteUsingDELETE_1",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ],
+                "deprecated": false
+            },
+            "patch": {
+                "tags": [
+                    "Feature"
+                ],
+                "summary": "Merge patch a feature",
+                "description": "Patch a features specific value using json merge patch.",
+                "operationId": "patchFeatureUsingPATCH",
+                "consumes": [
+                    "application/merge-patch+json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "data",
+                        "description": "data",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/feature"
+                        }
+                    },
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ],
+                "deprecated": false
+            }
+        },
+        "/api/v2/projects": {
+            "get": {
+                "tags": [
+                    "Project"
+                ],
+                "summary": "Get all projects",
+                "description": "Returns a summary list of all projects within the organisation",
+                "operationId": "listUsingGET_2",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/projects"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ],
+                "deprecated": false
+            },
+            "post": {
+                "tags": [
+                    "Project"
+                ],
+                "summary": "Create a new project",
+                "description": "Create a new project with the given friendly name and unique key.",
+                "operationId": "createUsingPOST_2",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "project",
+                        "description": "project",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/project-update"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/project"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ],
+                "deprecated": false
+            },
+            "put": {
+                "tags": [
+                    "Project"
+                ],
+                "summary": "Update a project",
+                "description": "Update a project with the given key.",
+                "operationId": "updateUsingPUT_2",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "project",
+                        "description": "project",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/project-update"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/project"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/v2/projects/{key}": {
+            "get": {
+                "tags": [
+                    "Project"
+                ],
+                "summary": "Get a project.",
+                "description": "Returns a detail representation of a single project for the given key or id",
+                "operationId": "getUsingGET_2",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "key",
+                        "in": "path",
+                        "description": "key",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/project"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ],
+                "deprecated": false
+            },
+            "delete": {
+                "tags": [
+                    "Project"
+                ],
+                "summary": "Delete a project",
+                "description": "Delete a project with the given key. Warning! All environments, features and history will be deleted.",
+                "operationId": "deleteUsingDELETE_2",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "key",
+                        "in": "path",
+                        "description": "key",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object"
+                        }
+                    },
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ],
+                "deprecated": false
+            }
+        }
+    },
+    "securityDefinitions": {
+        "apiKey": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    },
+    "definitions": {
+        "Audience": {
+            "type": "object",
+            "properties": {
+                "conditions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Condition"
+                    }
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            },
+            "title": "Audience"
+        },
+        "Condition": {
+            "type": "object",
+            "properties": {
+                "operator": {
+                    "type": "string",
+                    "enum": [
+                        "equals",
+                        "greaterThan",
+                        "lessThan",
+                        "greaterThanOrEqual",
+                        "lessThanOrEqual",
+                        "startsWith",
+                        "endsWith",
+                        "matches",
+                        "in",
+                        "notIn",
+                        "contains",
+                        "before",
+                        "after"
+                    ]
+                },
+                "target": {
+                    "type": "string"
+                },
+                "values": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    }
+                }
+            },
+            "title": "Condition"
+        },
+        "Link": {
+            "type": "object",
+            "properties": {
+                "href": {
+                    "type": "string",
+                    "xml": {
+                        "name": "href",
+                        "attribute": true,
+                        "wrapped": false
+                    }
+                },
+                "rel": {
+                    "type": "string",
+                    "xml": {
+                        "name": "rel",
+                        "attribute": true,
+                        "wrapped": false
+                    }
+                },
+                "templated": {
+                    "type": "boolean"
+                }
+            },
+            "title": "Link"
+        },
+        "Rule": {
+            "type": "object",
+            "properties": {
+                "audience": {
+                    "$ref": "#/definitions/Audience"
+                },
+                "defaultRule": {
+                    "type": "boolean"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "variantSplits": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/VariantSplit"
+                    }
+                }
+            },
+            "title": "Rule"
+        },
+        "VariantSplit": {
+            "type": "object",
+            "properties": {
+                "split": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "variantKey": {
+                    "type": "string"
+                }
+            },
+            "title": "VariantSplit"
+        },
+        "control": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "goals": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "offVariantKey": {
+                    "type": "string"
+                },
+                "rules": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Rule"
+                    }
+                }
+            },
+            "title": "control",
+            "description": "A control represents the environment specific configuration for a feature."
+        },
+        "environment": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "links": {
+                    "type": "array",
+                    "xml": {
+                        "name": "link",
+                        "namespace": "http://www.w3.org/2005/Atom",
+                        "attribute": false,
+                        "wrapped": false
+                    },
+                    "items": {
+                        "$ref": "#/definitions/Link"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                },
+                "production": {
+                    "type": "boolean"
+                },
+                "projectKey": {
+                    "type": "string"
+                }
+            },
+            "title": "environment",
+            "description": "An environment is a detailed representation of an environment within your software project."
+        },
+        "environment-summary": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "links": {
+                    "type": "array",
+                    "xml": {
+                        "name": "link",
+                        "namespace": "http://www.w3.org/2005/Atom",
+                        "attribute": false,
+                        "wrapped": false
+                    },
+                    "items": {
+                        "$ref": "#/definitions/Link"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                }
+            },
+            "title": "environment-summary",
+            "description": "A environment summary is a summary representation of an environment within your project."
+        },
+        "environment-update": {
+            "type": "object",
+            "required": [
+                "_id",
+                "name",
+                "production",
+                "projectKey"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "example": "12345678ertyuio",
+                    "description": "Unique identifier"
+                },
+                "projectKey": {
+                    "type": "string",
+                    "example": "PRJ1",
+                    "description": "The unique project key that this environment is related to."
+                },
+                "production": {
+                    "type": "boolean",
+                    "example": true,
+                    "description": "Whether the environment is considered a production environment."
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Production",
+                    "description": "The environment friendly name."
+                }
+            },
+            "title": "environment-update",
+            "description": "An environment is a detailed representation of an environment within your software project."
+        },
+        "environments": {
+            "type": "object",
+            "properties": {
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/environment-summary"
+                    }
+                },
+                "links": {
+                    "type": "array",
+                    "xml": {
+                        "name": "link",
+                        "namespace": "http://www.w3.org/2005/Atom",
+                        "attribute": false,
+                        "wrapped": false
+                    },
+                    "items": {
+                        "$ref": "#/definitions/Link"
+                    }
+                }
+            },
+            "title": "environments",
+            "description": "An environment is a detailed representation of an environment within your software project."
+        },
+        "feature": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "environments": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/control"
+                    }
+                },
+                "goalIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "key": {
+                    "type": "string"
+                },
+                "links": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Link"
+                    }
+                },
+                "maintainerId": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "permanent": {
+                    "type": "boolean"
+                },
+                "projectKey": {
+                    "type": "string"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "variants": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/variant"
+                    }
+                }
+            },
+            "title": "feature",
+            "description": "A feature is a detailed representation of a software feature within your project."
+        },
+        "feature-summary": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "environments": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/control"
+                    }
+                },
+                "key": {
+                    "type": "string"
+                },
+                "links": {
+                    "type": "array",
+                    "xml": {
+                        "name": "link",
+                        "namespace": "http://www.w3.org/2005/Atom",
+                        "attribute": false,
+                        "wrapped": false
+                    },
+                    "items": {
+                        "$ref": "#/definitions/Link"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                },
+                "projectKey": {
+                    "type": "string"
+                }
+            },
+            "title": "feature-summary",
+            "description": "A feature summary is a summary representation of a software feature within your project."
+        },
+        "features": {
+            "type": "object",
+            "properties": {
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/feature-summary"
+                    }
+                },
+                "links": {
+                    "type": "array",
+                    "xml": {
+                        "name": "link",
+                        "namespace": "http://www.w3.org/2005/Atom",
+                        "attribute": false,
+                        "wrapped": false
+                    },
+                    "items": {
+                        "$ref": "#/definitions/Link"
+                    }
+                }
+            },
+            "title": "features",
+            "description": "An environment is a detailed representation of an environment within your software project."
+        },
+        "project": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "links": {
+                    "type": "array",
+                    "xml": {
+                        "name": "link",
+                        "namespace": "http://www.w3.org/2005/Atom",
+                        "attribute": false,
+                        "wrapped": false
+                    },
+                    "items": {
+                        "$ref": "#/definitions/Link"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                }
+            },
+            "title": "project",
+            "description": "A project is a detailed representation of a software project within your organisation."
+        },
+        "project-summary": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "links": {
+                    "type": "array",
+                    "xml": {
+                        "name": "link",
+                        "namespace": "http://www.w3.org/2005/Atom",
+                        "attribute": false,
+                        "wrapped": false
+                    },
+                    "items": {
+                        "$ref": "#/definitions/Link"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                }
+            },
+            "title": "project-summary",
+            "description": "A project summary is a summary representation of a software project within your organisation."
+        },
+        "project-update": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            },
+            "title": "project-update",
+            "description": "A project is a detailed representation of a software project within your organisation."
+        },
+        "projects": {
+            "type": "object",
+            "properties": {
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/project-summary"
+                    }
+                },
+                "links": {
+                    "type": "array",
+                    "xml": {
+                        "name": "link",
+                        "namespace": "http://www.w3.org/2005/Atom",
+                        "attribute": false,
+                        "wrapped": false
+                    },
+                    "items": {
+                        "$ref": "#/definitions/Link"
+                    }
+                }{
+    "swagger": "2.0",
+    "info": {
+        "description": "Featureflow API documentation",
+        "version": "2.0.0",
+        "title": "Featureflow API",
+        "termsOfService": "https://www.featureflow.io/terms",
+        "contact": {
+            "name": "Featureflow",
+            "url": "https://www.featureflow.io",
+            "email": "contact@featureflow.io"
+        },
+        "license": {
+            "name": "proprietary",
+            "url": "https://www.featureflow.io/apilicense"
+        }
+    },
+    "host": "app.featureflow.io",
+    "basePath": "/",
+    "tags": [
+        {
+            "name": "Environment",
+            "description": "A environment allows you to manage multiple software environments under a single organisation account. Each environment has it's own environments and features. /n In the environment api you can list, get, update and delete environments."
+        },
+        {
+            "name": "Feature",
+            "description": "A feature represents a manageable feature in your organisations project. You can define feature variants and attributes then set feature configuration for each of your environments."
+        },
+        {
+            "name": "Project",
+            "description": "A project allows you to manage multiple software projects under a single organisation account. Each project has it's own environments and features. /n In the project api you can list, get, update and delete projects."
+        }
+    ],
+    "schemes": [
+        "https"
+    ],
+    "paths": {
+        "/api/v2/environments": {
+            "get": {
+                "tags": [
+                    "Environment"
+                ],
+                "summary": "Get all environments",
+                "description": "Returns a summary list of all environments within the organisation",
+                "operationId": "listUsingGET",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/environments"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ],
+                "deprecated": false
+            },
+            "post": {
+                "tags": [
+                    "Environment"
+                ],
+                "summary": "Create a new environment",
+                "description": "Create a new environment with the given friendly name and unique key.",
+                "operationId": "createUsingPOST",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "environment",
+                        "description": "environment",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/environment-update"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/environment"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ],
+                "deprecated": false
+            },
+            "put": {
+                "tags": [
+                    "Environment"
+                ],
+                "summary": "Update an environment",
+                "description": "Update an environment.",
+                "operationId": "updateUsingPUT",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "environment",
+                        "description": "environment",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/environment-update"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/environment"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ],
+                "deprecated": false
+            }
+        },
+        "/api/v2/environments/{id}": {
+            "get": {
+                "tags": [
+                    "Environment"
+                ],
+                "summary": "Get a environment.",
+                "description": "Returns a detail representation of a single environment for the given id",
+                "operationId": "getUsingGET",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/environment"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ],
+                "deprecated": false
+            },
+            "delete": {
+                "tags": [
+                    "Environment"
+                ],
+                "summary": "Delete a environment",
+                "description": "Delete a environment with the given id. Projects must have at least one environment.",
+                "operationId": "deleteUsingDELETE",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object"
+                        }
+                    },
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ],
+                "deprecated": false
+            }
+        },
+        "/api/v2/features": {
+            "get": {
+                "tags": [
+                    "Feature"
+                ],
+                "summary": "Get all features",
+                "description": "Returns a summary list of all features within the organisation",
+                "operationId": "listUsingGET_1",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "featureKey",
+                        "in": "query",
+                        "description": "featureKey",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "projectKey",
+                        "in": "query",
+                        "description": "projectKey",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/features"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ],
+                "deprecated": false
+            },
+            "post": {
+                "tags": [
+                    "Feature"
+                ],
+                "summary": "Create a new feature",
+                "description": "Create a new feature with the given friendly name and unique key.",
+                "operationId": "createUsingPOST_1",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "feature",
+                        "description": "feature",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/feature"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ],
+                "deprecated": false
+            },
+            "put": {
+                "tags": [
+                    "Feature"
+                ],
+                "summary": "Update a feature",
+                "description": "Update a feature with the given key.",
+                "operationId": "updateUsingPUT_1",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "feature",
+                        "description": "feature",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/feature"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/feature"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ],
+                "deprecated": false
+            }
+        },
+        "/api/v2/features/{id}": {
+            "get": {
+                "tags": [
+                    "Feature"
+                ],
+                "summary": "Get a feature.",
+                "description": "Returns a detail representation of a single feature for the given id or projectKey:featureKey",
+                "operationId": "getUsingGET_1",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/feature"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ],
+                "deprecated": false
+            },
+            "delete": {
+                "tags": [
+                    "Feature"
+                ],
+                "summary": "Delete a feature",
+                "description": "Delete a feature with the given id.",
+                "operationId": "deleteUsingDELETE_1",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ],
+                "deprecated": false
+            },
+            "patch": {
+                "tags": [
+                    "Feature"
+                ],
+                "summary": "Merge patch a feature",
+                "description": "Patch a features specific value using json merge patch.",
+                "operationId": "patchFeatureUsingPATCH",
+                "consumes": [
+                    "application/merge-patch+json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "data",
+                        "description": "data",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/feature"
+                        }
+                    },
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ],
+                "deprecated": false
+            }
+        },
+        "/api/v2/projects": {
+            "get": {
+                "tags": [
+                    "Project"
+                ],
+                "summary": "Get all projects",
+                "description": "Returns a summary list of all projects within the organisation",
+                "operationId": "listUsingGET_2",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/projects"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ],
+                "deprecated": false
+            },
+            "post": {
+                "tags": [
+                    "Project"
+                ],
+                "summary": "Create a new project",
+                "description": "Create a new project with the given friendly name and unique key.",
+                "operationId": "createUsingPOST_2",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "project",
+                        "description": "project",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/project-update"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/project"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ],
+                "deprecated": false
+            },
+            "put": {
+                "tags": [
+                    "Project"
+                ],
+                "summary": "Update a project",
+                "description": "Update a project with the given key.",
+                "operationId": "updateUsingPUT_2",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "project",
+                        "description": "project",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/project-update"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/project"
+                        }
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/v2/projects/{key}": {
+            "get": {
+                "tags": [
+                    "Project"
+                ],
+                "summary": "Get a project.",
+                "description": "Returns a detail representation of a single project for the given key or id",
+                "operationId": "getUsingGET_2",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "key",
+                        "in": "path",
+                        "description": "key",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/project"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ],
+                "deprecated": false
+            },
+            "delete": {
+                "tags": [
+                    "Project"
+                ],
+                "summary": "Delete a project",
+                "description": "Delete a project with the given key. Warning! All environments, features and history will be deleted.",
+                "operationId": "deleteUsingDELETE_2",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "key",
+                        "in": "path",
+                        "description": "key",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object"
+                        }
+                    },
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ],
+                "deprecated": false
+            }
+        }
+    },
+    "securityDefinitions": {
+        "apiKey": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    },
+    "definitions": {
+        "Audience": {
+            "type": "object",
+            "properties": {
+                "conditions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Condition"
+                    }
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            },
+            "title": "Audience"
+        },
+        "Condition": {
+            "type": "object",
+            "properties": {
+                "operator": {
+                    "type": "string",
+                    "enum": [
+                        "equals",
+                        "greaterThan",
+                        "lessThan",
+                        "greaterThanOrEqual",
+                        "lessThanOrEqual",
+                        "startsWith",
+                        "endsWith",
+                        "matches",
+                        "in",
+                        "notIn",
+                        "contains",
+                        "before",
+                        "after"
+                    ]
+                },
+                "target": {
+                    "type": "string"
+                },
+                "values": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    }
+                }
+            },
+            "title": "Condition"
+        },
+        "Link": {
+            "type": "object",
+            "properties": {
+                "href": {
+                    "type": "string",
+                    "xml": {
+                        "name": "href",
+                        "attribute": true,
+                        "wrapped": false
+                    }
+                },
+                "rel": {
+                    "type": "string",
+                    "xml": {
+                        "name": "rel",
+                        "attribute": true,
+                        "wrapped": false
+                    }
+                },
+                "templated": {
+                    "type": "boolean"
+                }
+            },
+            "title": "Link"
+        },
+        "Rule": {
+            "type": "object",
+            "properties": {
+                "audience": {
+                    "$ref": "#/definitions/Audience"
+                },
+                "defaultRule": {
+                    "type": "boolean"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "variantSplits": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/VariantSplit"
+                    }
+                }
+            },
+            "title": "Rule"
+        },
+        "VariantSplit": {
+            "type": "object",
+            "properties": {
+                "split": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "variantKey": {
+                    "type": "string"
+                }
+            },
+            "title": "VariantSplit"
+        },
+        "control": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "goals": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "offVariantKey": {
+                    "type": "string"
+                },
+                "rules": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Rule"
+                    }
+                }
+            },
+            "title": "control",
+            "description": "A control represents the environment specific configuration for a feature."
+        },
+        "environment": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "links": {
+                    "type": "array",
+                    "xml": {
+                        "name": "link",
+                        "namespace": "http://www.w3.org/2005/Atom",
+                        "attribute": false,
+                        "wrapped": false
+                    },
+                    "items": {
+                        "$ref": "#/definitions/Link"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                },
+                "production": {
+                    "type": "boolean"
+                },
+                "projectKey": {
+                    "type": "string"
+                }
+            },
+            "title": "environment",
+            "description": "An environment is a detailed representation of an environment within your software project."
+        },
+        "environment-summary": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "links": {
+                    "type": "array",
+                    "xml": {
+                        "name": "link",
+                        "namespace": "http://www.w3.org/2005/Atom",
+                        "attribute": false,
+                        "wrapped": false
+                    },
+                    "items": {
+                        "$ref": "#/definitions/Link"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                }
+            },
+            "title": "environment-summary",
+            "description": "A environment summary is a summary representation of an environment within your project."
+        },
+        "environment-update": {
+            "type": "object",
+            "required": [
+                "_id",
+                "name",
+                "production",
+                "projectKey"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "example": "12345678ertyuio",
+                    "description": "Unique identifier"
+                },
+                "projectKey": {
+                    "type": "string",
+                    "example": "PRJ1",
+                    "description": "The unique project key that this environment is related to."
+                },
+                "production": {
+                    "type": "boolean",
+                    "example": true,
+                    "description": "Whether the environment is considered a production environment."
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Production",
+                    "description": "The environment friendly name."
+                }
+            },
+            "title": "environment-update",
+            "description": "An environment is a detailed representation of an environment within your software project."
+        },
+        "environments": {
+            "type": "object",
+            "properties": {
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/environment-summary"
+                    }
+                },
+                "links": {
+                    "type": "array",
+                    "xml": {
+                        "name": "link",
+                        "namespace": "http://www.w3.org/2005/Atom",
+                        "attribute": false,
+                        "wrapped": false
+                    },
+                    "items": {
+                        "$ref": "#/definitions/Link"
+                    }
+                }
+            },
+            "title": "environments",
+            "description": "An environment is a detailed representation of an environment within your software project."
+        },
+        "feature": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "environments": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/control"
+                    }
+                },
+                "goalIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "key": {
+                    "type": "string"
+                },
+                "links": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Link"
+                    }
+                },
+                "maintainerId": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "permanent": {
+                    "type": "boolean"
+                },
+                "projectKey": {
+                    "type": "string"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "variants": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/variant"
+                    }
+                }
+            },
+            "title": "feature",
+            "description": "A feature is a detailed representation of a software feature within your project."
+        },
+        "feature-summary": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "environments": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/control"
+                    }
+                },
+                "key": {
+                    "type": "string"
+                },
+                "links": {
+                    "type": "array",
+                    "xml": {
+                        "name": "link",
+                        "namespace": "http://www.w3.org/2005/Atom",
+                        "attribute": false,
+                        "wrapped": false
+                    },
+                    "items": {
+                        "$ref": "#/definitions/Link"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                },
+                "projectKey": {
+                    "type": "string"
+                }
+            },
+            "title": "feature-summary",
+            "description": "A feature summary is a summary representation of a software feature within your project."
+        },
+        "features": {
+            "type": "object",
+            "properties": {
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/feature-summary"
+                    }
+                },
+                "links": {
+                    "type": "array",
+                    "xml": {
+                        "name": "link",
+                        "namespace": "http://www.w3.org/2005/Atom",
+                        "attribute": false,
+                        "wrapped": false
+                    },
+                    "items": {
+                        "$ref": "#/definitions/Link"
+                    }
+                }
+            },
+            "title": "features",
+            "description": "An environment is a detailed representation of an environment within your software project."
+        },
+        "project": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "links": {
+                    "type": "array",
+                    "xml": {
+                        "name": "link",
+                        "namespace": "http://www.w3.org/2005/Atom",
+                        "attribute": false,
+                        "wrapped": false
+                    },
+                    "items": {
+                        "$ref": "#/definitions/Link"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                }
+            },
+            "title": "project",
+            "description": "A project is a detailed representation of a software project within your organisation."
+        },
+        "project-summary": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "links": {
+                    "type": "array",
+                    "xml": {
+                        "name": "link",
+                        "namespace": "http://www.w3.org/2005/Atom",
+                        "attribute": false,
+                        "wrapped": false
+                    },
+                    "items": {
+                        "$ref": "#/definitions/Link"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                }
+            },
+            "title": "project-summary",
+            "description": "A project summary is a summary representation of a software project within your organisation."
+        },
+        "project-update": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            },
+            "title": "project-update",
+            "description": "A project is a detailed representation of a software project within your organisation."
+        },
+        "projects": {
+            "type": "object",
+            "properties": {
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/project-summary"
+                    }
+                },
+                "links": {
+                    "type": "array",
+                    "xml": {
+                        "name": "link",
+                        "namespace": "http://www.w3.org/2005/Atom",
+                        "attribute": false,
+                        "wrapped": false
+                    },
+                    "items": {
+                        "$ref": "#/definitions/Link"
+                    }
+                }
+            },
+            "title": "projects",
+            "description": "An project is a detailed representation of an environment within your software project."
+        },
+        "variant": {
+            "title": "variant",
+            "allOf": [
+                {
+                    "$ref": "#/definitions/feature"
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "description": {
+                            "type": "string"
+                        },
+                        "key": {
+                            "type": "string"
+                        },
+                        "meta": {
+                            "type": "string"
+                        },
+                        "name": {
+                            "type": "string"
+                        }
+                    },
+                    "title": "variant",
+                    "description": "A variant represents the variant of feature such as 'on', 'off', 'red', 'blue'."
+                }
+            ],
+            "description": "A variant represents the variant of feature such as 'on', 'off', 'red', 'blue'."
+        }
+    }
+}
+
+},
+            "title": "projects",
+            "description": "An project is a detailed representation of an environment within your software project."
+        },
+        "variant": {
+            "title": "variant",
+            "allOf": [
+                {
+                    "$ref": "#/definitions/feature"
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "description": {
+                            "type": "string"
+                        },
+                        "key": {
+                            "type": "string"
+                        },
+                        "meta": {
+                            "type": "string"
+                        },
+                        "name": {
+                            "type": "string"
+                        }
+                    },
+                    "title": "variant",
+                    "description": "A variant represents the variant of feature such as 'on', 'off', 'red', 'blue'."
+                }
+            ],
+            "description": "A variant represents the variant of feature such as 'on', 'off', 'red', 'blue'."
+        }
+    }
+}
